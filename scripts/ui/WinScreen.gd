@@ -42,11 +42,12 @@ func _ready() -> void:
 		var result: Dictionary = GameManager.get_last_level_result()
 		_display_results(result)
 
-	# Animación de entrada
-	modulate = Color.TRANSPARENT
-	var tween: Tween = create_tween()
-	tween.tween_property(self, "modulate", Color.WHITE, 0.3)
-	tween.play()
+	# Animación de entrada (usamos panel que sí tiene modulate al ser CanvasItem)
+	if panel:
+		panel.modulate = Color.TRANSPARENT
+		var tween: Tween = create_tween()
+		tween.tween_property(panel, "modulate", Color.WHITE, 0.3)
+		tween.play()
 
 
 func _on_level_completed(data: Dictionary) -> void:

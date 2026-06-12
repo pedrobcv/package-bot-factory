@@ -22,11 +22,12 @@ func _ready() -> void:
 	restart_button.text = "REINICIAR NIVEL"
 	menu_button.text = "VOLVER AL MENÚ"
 
-	# Animación de entrada con tween
-	modulate = Color.TRANSPARENT
-	var tween: Tween = create_tween()
-	tween.tween_property(self, "modulate", Color.WHITE, 0.2)
-	tween.play()
+	# Animación de entrada con tween (usamos panel que sí tiene modulate)
+	if panel:
+		panel.modulate = Color.TRANSPARENT
+		var tween: Tween = create_tween()
+		tween.tween_property(panel, "modulate", Color.WHITE, 0.2)
+		tween.play()
 
 	# Pausar el juego
 	get_tree().paused = true

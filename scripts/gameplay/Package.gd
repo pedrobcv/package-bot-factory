@@ -209,7 +209,7 @@ func play_suck_animation(target_pos: Vector2, callback: Callable):
 ## Animación de error: tiembla y flash rojo
 func play_error_animation():
 	_error_timer = 0.5
-	_modulate = Color(1, 0.5, 0.5)
+	modulate = Color(1, 0.5, 0.5)
 	
 	await get_tree().create_timer(1.0).timeout
 	_error_timer = 0.0

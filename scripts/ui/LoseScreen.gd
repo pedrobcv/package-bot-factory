@@ -32,11 +32,12 @@ func _ready() -> void:
 		var fail_data: Dictionary = GameManager.get_last_fail_data()
 		_display_fail_info(fail_data)
 
-	# Animación de entrada
-	modulate = Color.TRANSPARENT
-	var tween: Tween = create_tween()
-	tween.tween_property(self, "modulate", Color.WHITE, 0.3)
-	tween.play()
+	# Animación de entrada (usamos panel que sí tiene modulate al ser CanvasItem)
+	if panel:
+		panel.modulate = Color.TRANSPARENT
+		var tween: Tween = create_tween()
+		tween.tween_property(panel, "modulate", Color.WHITE, 0.3)
+		tween.play()
 
 
 func _on_level_failed(data: Dictionary) -> void:
