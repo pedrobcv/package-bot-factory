@@ -1,5 +1,4 @@
-[gd_resource type="Resource" load_steps=2 format=3]
-[resource]
+[gd_resource type="Resource" load_steps=1 format=3]
 script = Resource
 package_color = "rojo_oscuro"
 package_type = 3
