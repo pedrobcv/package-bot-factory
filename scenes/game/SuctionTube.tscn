@@ -6,6 +6,7 @@
 size = Vector2(70, 120)
 
 [node name="SuctionTube" type="Area2D"]
+input_pickable = true
 script = ExtResource("1_jmmf3")
 tube_color = "azul"
 tube_index = 0

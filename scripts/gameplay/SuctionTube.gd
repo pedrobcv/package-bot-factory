@@ -139,9 +139,11 @@ func _process(delta: float):
 		queue_redraw()
 
 
-## Detecta toques táctiles en el área del tubo
+## Detecta toques táctiles y clicks de ratón en el área del tubo
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int):
 	if event is InputEventScreenTouch and event.pressed:
+		_on_tap()
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		_on_tap()
 
 

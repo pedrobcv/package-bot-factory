@@ -109,13 +109,13 @@ func _process(delta: float):
 		position.x += randf_range(-2.0, 2.0)
 		queue_redraw()
 	
-	# Verificar si entró en zona de succión
-	if not _has_entered_suction_zone and position.y > 200:
+	# Verificar si entró en zona de succión (cerca de los tubos, ~y=950)
+	if not _has_entered_suction_zone and position.y > 900:
 		_has_entered_suction_zone = true
 		reached_suction_zone.emit(self)
 	
-	# Verificar si llegó al fondo (fuera de pantalla)
-	if position.y > 1400:
+	# Verificar si llegó al fondo (fuera de pantalla, altura 1280)
+	if position.y > 1200:
 		missed.emit(self)
 		queue_free()
 

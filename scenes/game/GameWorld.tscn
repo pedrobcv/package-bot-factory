@@ -1,47 +1,49 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Script" path="res://scripts/gameplay/ConveyorBelt.gd" id="1_q3ax5"]
-[ext_resource type="Script" path="res://scripts/gameplay/PackageSpawner.gd" id="2_wadpa"]
-[ext_resource type="Script" path="res://scripts/gameplay/PowerUpManager.gd" id="3_1ipsm"]
-[ext_resource type="Script" path="res://scripts/gameplay/SuctionQueue.gd" id="4_p4hpd"]
-[ext_resource type="Script" path="res://scripts/gameplay/ComboManager.gd" id="5_0e6hr"]
-[ext_resource type="Script" path="res://scripts/gameplay/SaturationSystem.gd" id="6_yd67k"]
+[ext_resource type="Script" path="res://scripts/gameplay/GameWorld.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/gameplay/ConveyorBelt.gd" id="2_conv"]
+[ext_resource type="Script" path="res://scripts/gameplay/PackageSpawner.gd" id="3_spawn"]
+[ext_resource type="Script" path="res://scripts/gameplay/PowerUpManager.gd" id="4_power"]
+[ext_resource type="Script" path="res://scripts/gameplay/SuctionQueue.gd" id="5_queue"]
+[ext_resource type="Script" path="res://scripts/gameplay/ComboManager.gd" id="6_combo"]
+[ext_resource type="Script" path="res://scripts/gameplay/SaturationSystem.gd" id="7_sat"]
 
 [node name="GameWorld" type="Node2D"]
+script = ExtResource("1_main")
 
 [node name="ConveyorBelt" type="Node2D" parent="."]
-position = Vector2(360, 340)
-script = ExtResource("1_q3ax5")
+position = Vector2(360, 640)
+script = ExtResource("2_conv")
 
 [node name="RobotContainer" type="Node2D" parent="."]
-position = Vector2(360, 100)
+position = Vector2(360, 1170)
 
 [node name="SuctionTubesContainer" type="Node2D" parent="."]
-position = Vector2(360, 280)
+position = Vector2(0, 1050)
 
 [node name="PackageSpawner" type="Node2D" parent="."]
 position = Vector2(360, 0)
-script = ExtResource("2_wadpa")
+script = ExtResource("3_spawn")
 
 [node name="SpawnTimer" type="Timer" parent="PackageSpawner"]
-wait_time = 2.0
+wait_time = 3.0
 one_shot = false
 
 [node name="SpawnPoint" type="Marker2D" parent="PackageSpawner"]
-position = Vector2(0, -50)
+position = Vector2(0, 60)
 
 [node name="PowerUpManager" type="Node" parent="."]
-script = ExtResource("3_1ipsm")
+script = ExtResource("4_power")
 
 [node name="SpawnTimer" type="Timer" parent="PowerUpManager"]
 wait_time = 15.0
-one_shot = true
+one_shot = false
 
 [node name="SuctionQueue" type="Node" parent="."]
-script = ExtResource("4_p4hpd")
+script = ExtResource("5_queue")
 
 [node name="ComboManager" type="Node" parent="."]
-script = ExtResource("5_0e6hr")
+script = ExtResource("6_combo")
 
 [node name="SaturationSystem" type="Node" parent="."]
-script = ExtResource("6_yd67k")
+script = ExtResource("7_sat")

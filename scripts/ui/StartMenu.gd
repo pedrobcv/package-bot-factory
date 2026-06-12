@@ -46,9 +46,12 @@ func _on_play_pressed() -> void:
 	if SaveManager and SaveManager.has_method("get_last_unlocked_level"):
 		last_level = SaveManager.get_last_unlocked_level()
 
-	# Iniciar el nivel
+	# Iniciar el nivel en GameManager
 	if GameManager and GameManager.has_method("start_level"):
 		GameManager.start_level(last_level)
+
+	# Cambiar a la escena de juego
+	get_tree().change_scene_to_file("res://scenes/game/GameWorld.tscn")
 
 
 func _on_level_select_pressed() -> void:
