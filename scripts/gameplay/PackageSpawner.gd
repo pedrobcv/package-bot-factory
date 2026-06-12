@@ -108,18 +108,18 @@ func _on_package_missed(package_ref):
 
 func configure_from_level(level_data: Dictionary):
 	if level_data.has("spawn_interval"):
-		spawn_interval = level_data.spawn_interval
+		spawn_interval = level_data["spawn_interval"]
 		if spawn_timer:
 			spawn_timer.wait_time = spawn_interval
 	
 	if level_data.has("conveyor_speed"):
-		conveyor_speed = level_data.conveyor_speed
+		conveyor_speed = level_data["conveyor_speed"]
 	
 	if level_data.has("available_colors"):
-		available_colors = level_data.available_colors.duplicate()
+		available_colors = level_data["available_colors"].duplicate()
 	
 	if level_data.has("available_package_types"):
-		available_types = level_data.available_package_types.duplicate()
+		available_types = level_data["available_package_types"].duplicate()
 
 
 func get_random_color() -> String:
