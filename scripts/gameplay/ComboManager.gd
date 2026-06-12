@@ -15,8 +15,12 @@ extends Node
 ## - combo_broken()
 
 # ------------------- Variables exportadas -------------------
+## Referencia a Constants autoload
+@onready var constants: Node = get_node("/root/Constants")
+
+# ------------------- Variables internas -------------------
 ## Contador actual de combo (aciertos consecutivos)
-@export var combo_count: int = 0
+var combo_count: int = 0
 ## Máximo combo alcanzado en la partida
 @export var max_combo: int = 0
 ## Multiplicador actual de puntos
@@ -24,7 +28,6 @@ extends Node
 
 # ------------------- Variables internas -------------------
 ## Referencia a Constants para acceder a los umbrales
-var _constants: Node = null
 
 
 func _ready():
@@ -74,20 +77,14 @@ func _calculate_multiplier():
 
 ## Obtiene los umbrales de combo desde Constants autoload
 func _get_combo_thresholds() -> Dictionary:
-	# Intentar obtener desde Constants (autoload)
-	if _constants == null:
-		_constants = Engine.get_main_loop().root.get_node_or_null("/root/Constants")
-	
-	if _constants and _constants.has_method("get"):
-		# Constants es un Node, tratar de acceder a COMBO_THRESHOLDS
-		if "COMBO_THRESHOLDS" in _constants:
-			return _constants.COMBO_THRESHOLDS
+	if constants and "COMBO_THRESHOLDS" in constants:
+		return constants.COMBO_THRESHOLDS
 	
 	# Fallback: umbrales por defecto
 	return {
-		2: 5,   # 2 aciertos: x5
-		3: 10,  # 3 aciertos: x10
-		4: 15   # 4 aciertos: x15
+		2: 5,
+		3: 10,
+		4: 15
 	}
 
 

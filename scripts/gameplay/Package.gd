@@ -199,6 +199,7 @@ func play_suck_animation(target_pos: Vector2, callback: Callable):
 	await tween.finished
 	
 	collected.emit(self)
+	SignalBus.package_collected.emit(self, points)
 	
 	if callback:
 		callback.call()

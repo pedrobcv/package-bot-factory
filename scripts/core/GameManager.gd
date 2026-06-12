@@ -207,3 +207,35 @@ func reset_game_state() -> void:
 	combo_count = 0
 	combo_multiplier = 1
 	saturation = 0.0
+
+
+## Reinicia el nivel actual desde el principio
+func restart_level() -> void:
+	reset_game_state()
+	current_state = Constants.GameState.PLAYING
+	state_changed.emit(current_state)
+	signal_bus.game_started.emit()
+
+
+## Último resultado de nivel completado (usado por WinScreen)
+var _last_level_result: Dictionary = {}
+
+## Guarda y retorna el último resultado de nivel completado
+## @return: Dictionary - Datos del último nivel completado
+func set_last_level_result(data: Dictionary) -> void:
+	_last_level_result = data
+
+func get_last_level_result() -> Dictionary:
+	return _last_level_result
+
+
+## Último dato de fallo (usado por LoseScreen)
+var _last_fail_data: Dictionary = {}
+
+## Guarda y retorna el último dato de fallo
+## @param data: Dictionary - Datos del fallo
+func set_last_fail_data(data: Dictionary) -> void:
+	_last_fail_data = data
+
+func get_last_fail_data() -> Dictionary:
+	return _last_fail_data

@@ -64,7 +64,7 @@ func save_game() -> void:
 		return
 	
 	# Guardar progreso de niveles
-	_config_file.set_value(SECTION_PROGRESS, "unlocked_levels", save_data.unlocked_levels)
+	_config_file.set_value(SECTION_PROGRESS, "unlocked_levels", save_data["unlocked_levels"])
 	
 	# Guardar puntuaciones máximas
 	var high_scores = save_data.get("high_scores", {})
@@ -75,7 +75,7 @@ func save_game() -> void:
 	var settings = save_data.get("settings", {})
 	for setting_key in settings:
 		_config_file.set_value(SECTION_SETTINGS, setting_key, settings[setting_key])
-	
+
 	# Escribir a disco
 	var error = _config_file.save("user://" + SAVE_FILE_NAME)
 	if error != OK:
@@ -106,7 +106,7 @@ func load_game() -> void:
 	# Cargar progreso de niveles
 	if _config_file.has_section(SECTION_PROGRESS):
 		var unlocked = _config_file.get_value(SECTION_PROGRESS, "unlocked_levels", 1)
-		save_data.unlocked_levels = unlocked
+		save_data["unlocked_levels"] = unlocked
 	
 	# Cargar puntuaciones máximas
 	if _config_file.has_section(SECTION_HIGH_SCORES):
@@ -115,7 +115,7 @@ func load_game() -> void:
 		for key in keys:
 			var level_num = int(key)
 			loaded_scores[level_num] = _config_file.get_value(SECTION_HIGH_SCORES, key, 0)
-		save_data.high_scores = loaded_scores
+		save_data["high_scores"] = loaded_scores
 	
 	# Cargar configuración
 	if _config_file.has_section(SECTION_SETTINGS):
@@ -123,7 +123,7 @@ func load_game() -> void:
 		var setting_keys = _config_file.get_section_keys(SECTION_SETTINGS)
 		for key in setting_keys:
 			settings[key] = _config_file.get_value(SECTION_SETTINGS, key, settings.get(key))
-		save_data.settings = settings
+		save_data["settings"] = settings
 
 
 # ==================================================================
@@ -137,8 +137,8 @@ func load_game() -> void:
 ##
 ## @param level_num: int - Número de nivel a desbloquear
 func unlock_level(level_num: int) -> void:
-	if level_num > save_data.unlocked_levels:
-		save_data.unlocked_levels = level_num
+	if level_num > save_data["unlocked_levels"]:
+		save_data["unlocked_levels"] = level_num
 
 
 ## Guarda la puntuación máxima de un nivel
@@ -152,7 +152,7 @@ func save_high_score(level_num: int, score: int) -> int:
 	var current_high = get_high_score(level_num)
 	
 	if score > current_high:
-		save_data.high_scores[level_num] = score
+		save_data["high_scores"][level_num] = score
 		return score
 	
 	return current_high
@@ -162,7 +162,18 @@ func save_high_score(level_num: int, score: int) -> int:
 ## @param level_num: int - Número del nivel
 ## @return: int - Puntuación máxima guardada, 0 si no hay registro
 func get_high_score(level_num: int) -> int:
-	return save_data.high_scores.get(level_num, 0)
+	return save_data["high_scores"].get(level_num, 0)
+
+
+## Alias para compatibilidad con UI scripts
+func get_level_score(level_num: int) -> int:
+	return get_high_score(level_num)
+
+
+## Obtiene el último nivel desbloqueado
+## @return: int - Número del último nivel desbloqueado
+func get_last_unlocked_level() -> int:
+	return save_data.get("unlocked_levels", 1)
 
 
 ## Actualiza una preferencia de configuración
@@ -171,9 +182,9 @@ func get_high_score(level_num: int) -> int:
 ## @param value: Mixed - Valor a asignar
 func update_setting(key: String, value) -> void:
 	if not save_data.has("settings"):
-		save_data.settings = {}
-	
-	save_data.settings[key] = value
+		save_data["settings"] = {}
+
+	save_data["settings"][key] = value
 
 
 ## Reinicia todos los datos guardados a sus valores por defecto

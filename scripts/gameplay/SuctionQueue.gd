@@ -14,12 +14,6 @@ extends Node
 ## - order_processed(order, package_ref, success)
 ## - queue_cleared()
 
-const COLOR_AZUL: String = "azul"
-const COLOR_AMARILLO: String = "amarillo"
-const COLOR_ROJO: String = "rojo"
-const COLOR_VERDE: String = "verde"
-const COLOR_MORADO: String = "morado"
-
 # ------------------- Variables exportadas -------------------
 ## Tamaño máximo de la cola de órdenes
 @export var max_queue_size: int = 3

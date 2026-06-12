@@ -22,7 +22,7 @@ func _ready() -> void:
 	lives_label.text = "❤❤❤"
 	combo_label.visible = false
 	saturation_bar.value = 0.0
-	saturation_bar.max_value = Constants.MAX_SATURATION if Constants.has_method("MAX_SATURATION") else 100.0
+	saturation_bar.max_value = Constants.MAX_SATURATION
 
 
 func update_score(score: int) -> void:

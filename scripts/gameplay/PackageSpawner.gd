@@ -10,8 +10,6 @@ extends Node2D
 ## Señales del SignalBus utilizadas:
 ## - package_spawned(package_ref)
 
-signal package_spawned(package_ref)
-
 # ------------------- Variables exportadas -------------------
 ## Intervalo entre spawns en segundos
 @export var spawn_interval: float = 2.0
@@ -97,8 +95,7 @@ func _on_spawn_timer_timeout():
 		# Reproducir animación de aparición
 		package.play_spawn_animation()
 		
-		# Emitir señales
-		package_spawned.emit(package)
+		# Emitir señal
 		SignalBus.package_spawned.emit(package)
 		
 		# Conectar señal de que llegó al fondo
@@ -107,19 +104,16 @@ func _on_spawn_timer_timeout():
 
 ## Crea una instancia de Package con configuración aleatoria
 func _create_package():
-	# En lugar de instanciar desde escena (que no existe aún),
-	# creamos el nodo directamente si no hay escena
-	
-	var package = load("res://scripts/gameplay/Package.gd")
-	if not package:
+	# Instanciar desde la escena .tscn para tener Area2D con CollisionShape2D
+	var scene = load(PACKAGE_SCENE_PATH)
+	if not scene:
 		return null
 	
-	# Crear instancia del script
-	var package_instance = load("res://scripts/gameplay/Package.gd").new()
+	var package_instance = scene.instantiate()
 	
 	if not package_instance:
 		return null
-	
+
 	# Configurar propiedades aleatorias
 	var color = get_random_color()
 	var ptype = get_random_type()
@@ -155,11 +149,11 @@ func configure_from_level(level_data: Dictionary):
 	if level_data.has("conveyor_speed"):
 		conveyor_speed = level_data.conveyor_speed
 	
-	if level_data.has("colors"):
-		available_colors = level_data.colors.duplicate()
+	if level_data.has("available_colors"):
+		available_colors = level_data.available_colors.duplicate()
 	
-	if level_data.has("types"):
-		available_types = level_data.types.duplicate()
+	if level_data.has("available_package_types"):
+		available_types = level_data.available_package_types.duplicate()
 	
 	if level_data.has("max_packages"):
 		max_packages_on_screen = level_data.max_packages

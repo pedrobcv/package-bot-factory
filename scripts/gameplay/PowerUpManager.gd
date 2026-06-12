@@ -29,7 +29,9 @@ func _ready():
 	## Inicializar el administrador de power-ups
 	if spawn_timer:
 		spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-		spawn_timer.one_shot = true
+		spawn_timer.one_shot = false
+		spawn_timer.wait_time = 12.0  # Primer power-up a los 12 segundos
+		spawn_timer.start()
 
 
 func _process(delta: float):
@@ -61,10 +63,11 @@ func spawn_power_up():
 	var type_index = randi() % available_powerups.size()
 	var power_up_type = available_powerups[type_index]
 	
-	# Crear instancia de PowerUp
-	var power_up = load("res://scripts/gameplay/PowerUp.gd").new()
-	if not power_up:
+	# Crear instancia de PowerUp desde escena
+	var power_up_scene = load(POWERUP_SCENE_PATH)
+	if not power_up_scene:
 		return null
+	var power_up = power_up_scene.instantiate()
 	
 	power_up.power_up_type = power_up_type
 	

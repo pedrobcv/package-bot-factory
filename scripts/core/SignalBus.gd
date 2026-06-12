@@ -97,6 +97,25 @@ signal score_updated(score: int)
 ## Se emite para volver al menú principal
 signal return_to_menu()
 
+## Se emite para cambiar de escena (carga una nueva escena)
+## @param scene_path: String - Ruta a la escena a cargar
+signal change_scene(scene_path: String)
+
+## Se emite cuando se abre un menú (start, level_select, etc.)
+## @param menu_name: String - Nombre del menú abierto
+signal menu_opened(menu_name: String)
+
+## Se emite cuando el jugador solicita pausar el juego
+signal pause_requested()
+
+## Se emite cuando un nivel se completa con datos de resultado
+## @param data: Dictionary - Datos del nivel completado (score, level, etc.)
+signal level_completed(data: Dictionary)
+
+## Se emite cuando un nivel se pierde con datos de fallo
+## @param data: Dictionary - Datos del fallo (level, cause, etc.)
+signal level_failed(data: Dictionary)
+
 ## Se emite cuando cambia la velocidad de la cinta transportadora
 ## @param speed: float - Nueva velocidad
 signal conveyor_speed_changed(speed: float)
