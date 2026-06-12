@@ -75,7 +75,7 @@ func process_next_order(package_color: String) -> Dictionary:
 		}
 	
 	var first_order: Dictionary = _order_queue[0]
-	var matches: bool = (first_order.tube_color == package_color)
+	var matches: bool = (first_order["tube_color"] == package_color)
 	
 	if matches:
 		# Remover la primera orden
@@ -83,7 +83,7 @@ func process_next_order(package_color: String) -> Dictionary:
 		
 		# Actualizar números de orden de los elementos restantes
 		for i in range(_order_queue.size()):
-			_order_queue[i].order_number = i + 1
+			_order_queue[i]["order_number"] = i + 1
 		
 		# Emitir señal de procesamiento exitoso
 		SignalBus.order_processed.emit(first_order, null, true)
@@ -116,7 +116,7 @@ func cancel_order(tube_index: int) -> bool:
 	
 	var index_to_remove: int = -1
 	for i in range(_order_queue.size()):
-		if _order_queue[i].tube_index == tube_index:
+		if _order_queue[i]["tube_index"] == tube_index:
 			index_to_remove = i
 			break
 	
@@ -127,7 +127,7 @@ func cancel_order(tube_index: int) -> bool:
 	
 	# Actualizar números de orden
 	for i in range(_order_queue.size()):
-		_order_queue[i].order_number = i + 1
+		_order_queue[i]["order_number"] = i + 1
 	
 	# Emitir señal indicando que se procesó (cancelación)
 	SignalBus.order_processed.emit({"tube_color": "", "tube_index": tube_index}, null, false)

@@ -61,8 +61,8 @@ func _display_results(data: Dictionary) -> void:
 	_completed_level = data.get("level", 1)
 	_total_score = data.get("score", 0)
 
-	var correct_packages: int = data.get("correct_packages", 0)
-	var target_packages: int = data.get("target_packages", 1)
+	var correct_packages: int = data.get("packages", data.get("correct_packages", 0))
+	var target_packages: int = data.get("target", data.get("target_packages", 1))
 	var errors: int = data.get("errors", 0)
 	var max_combo: int = data.get("max_combo", 0)
 

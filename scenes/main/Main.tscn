@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://scripts/ui/StartMenu.gd" id="1_0y1q5"]
+[ext_resource type="Script" path="res://scripts/ui/Main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/ui/StartMenu.gd" id="2_start"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_main")
 
 [node name="StartMenu" type="Control" parent="."]
 layout_mode = 0
@@ -12,7 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size = Vector2(720, 1280)
-script = ExtResource("1_0y1q5")
+script = ExtResource("2_start")
 
 [node name="TitleLabel" type="Label" parent="StartMenu"]
 layout_mode = 1

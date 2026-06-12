@@ -183,7 +183,7 @@ func _configurar_package_spawner():
 		package_spawner.conveyor_speed = level_dict.get("conveyor_speed", 80.0)
 	if "available_colors" in package_spawner:
 		package_spawner.available_colors = level_dict.get("available_colors", ["azul", "amarillo"]).duplicate()
-	if "available_package_types" in package_spawner:
+	if "available_types" in package_spawner:
 		package_spawner.available_types = level_dict.get("available_package_types", [0]).duplicate()
 	
 	# Configurar timer
@@ -328,6 +328,10 @@ func _on_package_collected(package_ref, points: int):
 		_hud.update_score(GameManager.score if GameManager else 0)
 		_hud.update_combo(GameManager.combo_count if GameManager else 0, GameManager.combo_multiplier if GameManager else 1)
 	
+	# Trackear combo máximo
+	if GameManager and GameManager.combo_count > _max_combo:
+		_max_combo = GameManager.combo_count
+	
 	# Verificar victoria
 	if _packages_collected >= _packages_target:
 		_victoria()
@@ -376,20 +380,28 @@ func _actualizar_numeros_tubos():
 
 func _victoria():
 	if GameManager:
-		GameManager.set_last_level_result({
+		var result_data = {
 			"level": GameManager.current_level,
 			"score": GameManager.score,
 			"packages": _packages_collected,
 			"target": _packages_target,
 			"errors": _errors,
 			"max_combo": _max_combo
-		})
+		}
+		GameManager.set_last_level_result(result_data)
 		GameManager.check_victory()
+		SignalBus.level_completed.emit(result_data)
 
 
 func _check_defeat():
 	if GameManager:
+		var fail_data = {
+			"level": GameManager.current_level,
+			"cause": "max_saturation" if GameManager.saturation >= 100 else "no_lives"
+		}
+		GameManager.set_last_fail_data(fail_data)
 		GameManager.check_defeat()
+		SignalBus.level_failed.emit(fail_data)
 
 
 # ------------------------------------------------------------------

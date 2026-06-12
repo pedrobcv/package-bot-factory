@@ -19,7 +19,7 @@ extends Node
 var active_powerups: Dictionary = {}
 
 ## Referencia a la escena de PowerUp (para instanciar)
-const POWERUP_SCENE_PATH: String = "res://scenes/gameplay/PowerUp.tscn"
+const POWERUP_SCENE_PATH: String = "res://scenes/game/PowerUp.tscn"
 
 ## Temporizador para spawn de power-ups
 @onready var spawn_timer: Timer = $SpawnTimer
