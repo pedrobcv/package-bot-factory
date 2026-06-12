@@ -1,0 +1,9 @@
+.godot/
+*.import
+*.translation
+.import/
+.mono/
+export/
+exports/
+.project_metadata
+.project_editorn

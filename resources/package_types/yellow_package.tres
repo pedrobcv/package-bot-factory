@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[resource]
+script = Resource
+package_color = "amarillo"
+package_type = 0
+speed_modifier = 1.0
+points = 10
+penalty = 0
+can_be_sucked = true
+requires_exact_match = true

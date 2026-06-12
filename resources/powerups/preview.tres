@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[resource]
+script = Resource
+type = "preview"
+duration = 5.0
+display_name = "Vista Previa"
+icon_letter = "V"

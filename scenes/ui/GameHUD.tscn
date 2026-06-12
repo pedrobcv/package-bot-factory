@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/GameHUD.gd" id="1_uk5ps"]
+
+[sub_resource type="RectangleShape2D" id="1_dh2q7"]
+size = Vector2(200, 20)
+
+[node name="GameHUD" type="CanvasLayer"]
+layer = 1
+script = ExtResource("1_uk5ps")
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+layout_mode = 0
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 710.0
+offset_bottom = 60.0
+size = Vector2(700, 50)
+alignment = 1
+
+[node name="LevelLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+size = Vector2(200, 50)
+theme_override_font_sizes/font_size = 24
+text = "NIVEL 1"
+
+[node name="ScoreLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+size = Vector2(200, 50)
+theme_override_font_sizes/font_size = 24
+text = "PUNTOS: 0"
+
+[node name="LivesLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+size = Vector2(200, 50)
+theme_override_font_sizes/font_size = 24
+text = "❤❤❤"
+
+[node name="ComboLabel" type="Label" parent="."]
+layout_mode = 0
+anchors_preset = 1
+anchor_left = 0.5
+anchor_top = 0.12
+anchor_right = 0.5
+anchor_bottom = 0.12
+offset_left = -100.0
+offset_right = 100.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size = Vector2(200, 40)
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 0.8, 0, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+text = ""
+visible = false
+
+[node name="SaturationBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_right = 150.0
+offset_top = -60.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+size = Vector2(300, 40)
+max_value = 100.0
+value = 0.0
+show_percentage = false
+
+[node name="PauseButton" type="Button" parent="."]
+layout_mode = 0
+anchors_preset = 2
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -70.0
+offset_right = -10.0
+offset_top = 10.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+size = Vector2(60, 50)
+theme_override_font_sizes/font_size = 20
+text = "II"
+
+[node name="FloatingTextContainer" type="Control" parent="."]
+layout_mode = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size = Vector2(720, 1280)
+mouse_filter = 2

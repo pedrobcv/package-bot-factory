@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/ConveyorBelt.gd" id="1_0tmjh"]
+
+[node name="ConveyorBelt" type="Node2D"]
+script = ExtResource("1_0tmjh")
+speed = 100.0
+active = true
+belt_height = 600.0
+belt_width = 60.0

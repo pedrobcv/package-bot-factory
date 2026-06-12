@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/PackageSpawner.gd" id="1_6uxme"]
+
+[node name="PackageSpawner" type="Node2D"]
+script = ExtResource("1_6uxme")
+spawn_interval = 2.0
+conveyor_speed = 100.0
+available_colors = PackedStringArray("azul", "amarillo")
+available_types = Array[int]([0])
+is_active = false
+max_packages_on_screen = 8
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = false
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, -50)

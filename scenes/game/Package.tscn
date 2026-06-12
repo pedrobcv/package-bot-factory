@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/Package.gd" id="1_ysmk7"]
+
+[sub_resource type="RectangleShape2D" id="1_5hatq"]
+size = Vector2(30, 30)
+
+[node name="Package" type="Area2D"]
+script = ExtResource("1_ysmk7")
+package_color = "azul"
+package_type = 0
+speed = 100.0
+points = 10
+penalty = 0
+can_be_sucked = true
+requires_exact_match = true
+frozen_duration = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1_5hatq")

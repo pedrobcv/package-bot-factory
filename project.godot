@@ -1,0 +1,38 @@
+; Engine configuration file.
+; Designed to be edited by Godot itself.
+; DO NOT EDIT MANUALLY UNLESS YOU KNOW WHAT YOU'RE DOING.
+
+[application]
+config/name="Package Bot Factory"
+config/description="A mobile factory game where you sort packages with suction tubes."
+run/main_scene="res://scenes/main/Main.tscn"
+config/icon="res://icon.png"
+
+[display]
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/size/mode=0
+window/size/always_on_top=false
+window/size/test_width=720
+window/size/test_height=1280
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=1
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+quality/driver/driver_name="GLES3"
+
+[autoload]
+SignalBus="*res://scripts/core/SignalBus.gd"
+GameManager="*res://scripts/core/GameManager.gd"
+LevelManager="*res://scripts/core/LevelManager.gd"
+SaveManager="*res://scripts/core/SaveManager.gd"
+AudioManager="*res://scripts/core/AudioManager.gd"
+Constants="*res://scripts/core/Constants.gd"
+
+[input_devices]
+pointing/emulate_touch_from_mouse=true
+
+[dotnet]
+project/assembly_name="Package Bot Factory"

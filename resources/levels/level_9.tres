@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/core/LevelManager.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+level_number = 9
+target_packages = 35
+conveyor_speed = 130.0
+spawn_interval = 1.5
+available_colors = ["azul", "amarillo", "rojo", "verde", "morado"]
+available_package_types = [0, 2, 4]
+available_powerups = ["slow_motion", "double_points", "bomb_cleaner"]
+max_lives = 3
+max_saturation = 100.0
+max_queue_size = 5
+allow_order_cancel = false
+difficulty_multiplier = 1.0

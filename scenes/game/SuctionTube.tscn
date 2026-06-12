@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/SuctionTube.gd" id="1_jmmf3"]
+
+[sub_resource type="RectangleShape2D" id="1_2a1k5"]
+size = Vector2(70, 120)
+
+[node name="SuctionTube" type="Area2D"]
+script = ExtResource("1_jmmf3")
+tube_color = "azul"
+tube_index = 0
+order_number = 0
+is_selected = false
+is_blocked = false
+tube_width = 70.0
+tube_height = 120.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1_2a1k5")
+
+[node name="OrderLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -85.0
+offset_right = 20.0
+offset_bottom = -55.0
+size = Vector2(40, 30)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
+text = ""

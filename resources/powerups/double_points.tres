@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[resource]
+script = Resource
+type = "double_points"
+duration = 6.0
+display_name = "Puntos Dobles"
+icon_letter = "X2"
