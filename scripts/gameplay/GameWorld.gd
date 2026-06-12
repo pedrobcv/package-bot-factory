@@ -1,36 +1,22 @@
 extends Node2D
 
 ## GameWorld - Coordinador central del gameplay
-##
-## Orquesta todos los sistemas del juego: carga el nivel,
-## instancia los tubos, conecta las señales entre componentes,
-## y maneja el ciclo de juego completo.
-##
-## Señales del SignalBus utilizadas:
-## - tube_tapped(tube_color, tube_index)
-## - order_added_to_queue(order)
-## - order_processed(order, package_ref, success)
-## - package_reached_bottom(package_ref)
-## - package_collected / package_error
-## - combo_updated / combo_broken
-## - lives_changed / saturation_changed / score_updated
-## - victory / defeat
 
-# ------------------- Constantes -------------------
+# Constantes
 const TUBE_SCENE_PATH: String = "res://scenes/game/SuctionTube.tscn"
 const ROBOT_SCENE_PATH: String = "res://scenes/game/Robot.tscn"
-const PACKAGE_SCENE_PATH: String = "res://scenes/game/Package.tscn"
+const HUD_SCENE_PATH: String = "res://scenes/ui/GameHUD.tscn"
 
 const TUBE_COLORS_LIST: Array = ["azul", "amarillo", "rojo", "verde", "morado"]
 
-# ------------------- Variables de nivel -------------------
+# Variables de nivel
 var _level_data: Dictionary = {}
 var _packages_collected: int = 0
 var _packages_target: int = 10
 var _errors: int = 0
 var _max_combo: int = 0
 
-# ------------------- Referencias a nodos hijos -------------------
+# Referencias a nodos hijos
 @onready var conveyor_belt: Node2D = $ConveyorBelt
 @onready var robot_container: Node2D = $RobotContainer
 @onready var tubes_container: Node2D = $SuctionTubesContainer
@@ -40,8 +26,8 @@ var _max_combo: int = 0
 @onready var combo_manager: Node = $ComboManager
 @onready var saturation_system: Node = $SaturationSystem
 
-# ------------------- Arrays de tubos -------------------
-var _tubes: Array = []  # Array de referencias a SuctionTube
+var _tubes: Array = []
+var _hud: CanvasLayer = null
 
 # ------------------------------------------------------------------
 # INICIALIZACIÓN
@@ -91,7 +77,10 @@ func _cargar_nivel_y_configurar():
 	# 6. Conectar señales
 	_conectar_seniales()
 	
-	# 7. Iniciar spawn de paquetes
+	# 7. Instanciar HUD
+	_instanciar_hud()
+	
+	# 8. Iniciar spawn de paquetes
 	if package_spawner and package_spawner.has_method("start_spawning"):
 		package_spawner.start_spawning()
 
@@ -320,6 +309,9 @@ func _on_package_missed(package_ref):
 	# Aumentar saturación
 	if GameManager:
 		GameManager.add_saturation(15.0)
+	# Actualizar HUD
+	if _hud:
+		_hud.update_saturation(GameManager.saturation if GameManager else 0, 100.0)
 
 
 ## Cuando un paquete es recolectado correctamente
@@ -330,6 +322,11 @@ func _on_package_collected(package_ref, points: int):
 	if GameManager:
 		GameManager.add_score(points)
 		GameManager.add_combo()
+	
+	# Actualizar HUD
+	if _hud:
+		_hud.update_score(GameManager.score if GameManager else 0)
+		_hud.update_combo(GameManager.combo_count if GameManager else 0, GameManager.combo_multiplier if GameManager else 1)
 	
 	# Verificar victoria
 	if _packages_collected >= _packages_target:
@@ -393,3 +390,24 @@ func _victoria():
 func _check_defeat():
 	if GameManager:
 		GameManager.check_defeat()
+
+
+# ------------------------------------------------------------------
+# HUD Y VISUALES
+# ------------------------------------------------------------------
+
+func _instanciar_hud():
+	var scene = load(HUD_SCENE_PATH)
+	if not scene:
+		return
+	_hud = scene.instantiate()
+	if _hud:
+		add_child(_hud)
+		_hud.update_level(GameManager.current_level if GameManager else 1)
+
+
+func _draw():
+	# Fondo oscuro de fábrica
+	draw_rect(Rect2(0, 0, 720, 1280), Color(0.1, 0.12, 0.18))
+	# Línea del suelo
+	draw_line(Vector2(0, 1150), Vector2(720, 1150), Color(0.3, 0.3, 0.4), 2.0)
