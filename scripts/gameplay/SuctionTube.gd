@@ -44,6 +44,8 @@ const TUBE_COLORS: Dictionary = {
 var _current_color: Color = Color("#3498db")
 ## Temporizador para animación de error
 var _error_timer: float = 0.0
+## Posición original para restaurar tras animación de error
+var _original_position: Vector2
 ## Factor de escala para animación de succión
 var _suck_scale: float = 1.0
 ## Factor de brillo para selección
@@ -190,6 +192,7 @@ func play_select_animation():
 ## Animación de error: tiembla y se pone rojo momentáneamente
 func play_error_animation():
 	var original_color = _current_color
+	_original_position = position
 	_current_color = Color("#e74c3c")  # Rojo
 	_error_timer = 0.5
 	queue_redraw()
@@ -197,6 +200,7 @@ func play_error_animation():
 	await get_tree().create_timer(0.5).timeout
 	_current_color = original_color
 	_error_timer = 0.0
+	position = _original_position
 	queue_redraw()
 
 
